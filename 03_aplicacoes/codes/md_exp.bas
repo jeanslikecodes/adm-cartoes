@@ -16,7 +16,6 @@ Sub export_code()
         MkDir (pathCode)
     End If
     
-    
     For Each Module In thisWB.VBProject.VBComponents
         Module.Export (pathCode & "/" & Module.Name & ".bas")
     Next
