@@ -1,1 +1,5 @@
 ~*.xlsb
+
+00_setup/
+01_pdf/
+02_base/
