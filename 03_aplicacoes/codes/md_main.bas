@@ -9,11 +9,13 @@ Sub include_info_in_base()
     md_var.instance_variables
     
     Dim nameFile As String
+    Dim sizeFile As Integer
     Dim yearFile As String
      
     For Each myFile In pdfPath.Files
         
         nameFile = myFile.Name
+        sizeFile = myFile.Size
         
         If Right(nameFile, 4) = ".pdf" Or _
             Left(nameFile, 1) = "~" Then
@@ -44,7 +46,7 @@ Sub include_info_in_base()
                 md_bo.clear_bo
                 
                 ' atualizar painel de controle
-                
+                md_pc.insert_info nameFile, sizeFile
             End If
             
         End If
