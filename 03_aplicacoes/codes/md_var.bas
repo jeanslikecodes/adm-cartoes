@@ -25,10 +25,10 @@ Sub instance_variables()
     shBO = "BO"
     
     pathVar = Split(thisWorkbook.path, "\")
-    pathLen = Len(pathV(UBound(pathV)))
+    pathLen = Len(pathVar(UBound(pathVar)))
     path03 = thisWorkbook.path
     path02 = Left(path03, Len(path03) - pathLen) & "02_base"
-    path01 = Left(path03, Len(path03) - pathLen) & "01_arquivos"
+    path01 = Left(path03, Len(path03) - pathLen) & "01_pdf"
     path00 = Left(path03, Len(path03) - pathLen) & "00_setup"
     
     Set obj = New Scripting.FileSystemObject

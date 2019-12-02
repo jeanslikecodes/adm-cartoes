@@ -10,6 +10,6 @@ Function check_existence_arq_in_pc(nameFile As String)
     On Error Resume Next
     rwArc = WorksheetFunction.Match(nameFile, Sheets(shPC).Range("B:B"), 0)
     
-    check_existence rwArc
+    check_existence_arq_in_pc = rwArc
     
 End Function

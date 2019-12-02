@@ -8,7 +8,8 @@ Sub include_info_in_base()
 
     md_var.instance_variables
     
-    Dim file As String
+    Dim nameFile As String
+    Dim yearFile As String
      
     For Each myFile In pdfPath.Files
         
@@ -17,11 +18,34 @@ Sub include_info_in_base()
         If Right(nameFile, 4) = ".pdf" Or _
             Left(nameFile, 1) = "~" Then
             
-            md_arc.check_existence nameFile
+            ' verifica se o arquivo já foi lido
+            If md_arc.check_existence_arq_in_pc(nameFile) = "" Then
+                
+                yearFile = Left(nameFile, 4)
+                
+                ' verificar se a base do ano do arquivo existe
+                If md_bas.check_base(yearFile) = "" Then
+                    ' cria base em 02_base
+                    md_bas.create_base yearFile
+                End If
+                
+                ' copiar conteudo do pdf pro arquivo
+                
+                
+                
+                
+                
+                ' formatar arquivo
+                ' abrir base
+                ' copiar p/ base
+                ' atualizar painel de controle
+                
+            End If
             
         End If
     
     Next
 
 End Sub
+
 
