@@ -39,7 +39,6 @@ Sub copy_content_pdf(nameFile As String)
             
     frClB = Sheets(shBO).Cells(Rows.Count, 2).End(xlUp).Row
             
-      
     Sheets(shBO).Range("B" & frClB + 1).Select
     ActiveSheet.Paste
             

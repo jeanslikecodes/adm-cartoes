@@ -40,6 +40,9 @@ Sub include_info_in_base()
                 ' copiar p/ base
                 md_arc.copy_content_up yearFile
                 
+                ' limpa bo
+                md_bo.clear_bo
+                
                 ' atualizar painel de controle
                 
             End If
