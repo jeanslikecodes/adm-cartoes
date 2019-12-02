@@ -34,6 +34,9 @@ Sub open_base(yearFile As String)
     nameBase = "base_" & yearFile
     
     Workbooks.Open (basPath & "\" & nameBase)
+    
+    Application.Wait (Now + TimeSerial(0, 0, 4))
+    
     Workbooks(nameBase).Activate
 
 End Sub

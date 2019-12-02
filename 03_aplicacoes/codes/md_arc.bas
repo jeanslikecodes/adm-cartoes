@@ -64,7 +64,7 @@ Sub copy_content_up(yearFile As String)
     Sheets(shBO).Range("A2:B" & frClA).Select
     Selection.Copy
     
-    Application.Wait (Now + TimeSerial(0, 0, 3))
+    Application.Wait (Now + TimeSerial(0, 0, 5))
     
     Workbooks(nameBase).Activate
     Workbooks(nameBase).Sheets(shBO).Select
@@ -74,7 +74,9 @@ Sub copy_content_up(yearFile As String)
     Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
     
     Workbooks(nameBase).Save
-    Application.Wait (Now + TimeSerial(0, 0, 3))
+    
+    Application.Wait (Now + TimeSerial(0, 0, 5))
+    
     Workbooks(nameBase).Close
     
 End Sub
