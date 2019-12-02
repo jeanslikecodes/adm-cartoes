@@ -30,10 +30,7 @@ Sub include_info_in_base()
                 End If
                 
                 ' copiar conteudo do pdf pro arquivo
-                
-                
-                
-                
+                md_arc.copy_content_pdf nameFile
                 
                 ' formatar arquivo
                 ' abrir base
