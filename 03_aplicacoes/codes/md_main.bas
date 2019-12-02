@@ -9,13 +9,13 @@ Sub include_info_in_base()
     md_var.instance_variables
     
     Dim nameFile As String
-    Dim sizeFile As Long
+    Dim sizefile As Long
     Dim yearFile As String
      
     For Each myFile In pdfPath.Files
         
         nameFile = myFile.Name
-        sizeFile = myFile.Size
+        sizefile = myFile.Size
         
         If Right(nameFile, 4) = ".pdf" Or _
             Left(nameFile, 1) = "~" Then
@@ -32,9 +32,12 @@ Sub include_info_in_base()
                 End If
                 
                 ' copiar conteudo do pdf pro arquivo
-                md_arc.copy_content_pdf nameFile
+                md_arc.copy_content_pdf nameFile, sizefile
                 
                 ' formatar arquivo
+                md_for.extract_and_transform
+                
+                Exit Sub
                 
                 ' abrir base
                 md_bas.open_base yearFile
@@ -46,7 +49,7 @@ Sub include_info_in_base()
                 md_bo.clear_bo
                 
                 ' atualizar painel de controle
-                md_pc.insert_info nameFile, sizeFile
+                md_pc.insert_info nameFile, sizefile
             End If
             
         End If

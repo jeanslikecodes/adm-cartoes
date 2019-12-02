@@ -3,6 +3,8 @@ Attribute VB_Name = "md_var"
 ' atualiza_bases
 Public shPC As String ' painel de controle
 Public shBO As String ' base original
+Public shBL As String ' base limpa
+Public shBC As String ' base consolidada
 
 Public path00 As String
 Public path01 As String
@@ -23,6 +25,8 @@ Sub instance_variables()
         
     shPC = "Painel de Controle"
     shBO = "BO"
+    shBL = "BL"
+    shBC = "BC"
     
     pathVar = Split(thisWorkbook.path, "\")
     pathLen = Len(pathVar(UBound(pathVar)))

@@ -14,15 +14,20 @@ Function check_existence_arq_in_pc(nameFile As String)
     
 End Function
 
-Sub copy_content_pdf(nameFile As String)
+Sub copy_content_pdf(nameFile As String, sizefile As Long)
 
     Dim adobeApp As String
     Dim adobeStart
     
     adobeFile = pdfPath & "/" & nameFile
             
+    If CInt(Round(sizefile / 1024, 0)) <= 220 Then
+        seconds = 40
+    Else
+        seconds = 60
+    End If
+    
     minutes = 0
-    seconds = 45
             
     thisWorkbook.FollowHyperlink adobeFile
             
