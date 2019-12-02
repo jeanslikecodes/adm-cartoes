@@ -33,7 +33,10 @@ Sub include_info_in_base()
                 md_arc.copy_content_pdf nameFile
                 
                 ' formatar arquivo
+                
                 ' abrir base
+                md_bas.open_base yearFile
+                
                 ' copiar p/ base
                 ' atualizar painel de controle
                 

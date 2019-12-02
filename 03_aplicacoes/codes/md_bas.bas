@@ -29,3 +29,12 @@ Sub create_base(yearFile As String)
     Name desName1 As desName2
 
 End Sub
+
+Sub open_base(yearFile As String)
+
+    nameBase = "base_" & yearFile
+    
+    Workbooks.Open (basPath & "\" & nameBase)
+    Workbooks(nameBase).Activate
+
+End Sub
