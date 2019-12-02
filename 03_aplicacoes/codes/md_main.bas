@@ -38,6 +38,8 @@ Sub include_info_in_base()
                 md_bas.open_base yearFile
                 
                 ' copiar p/ base
+                md_arc.copy_content_up yearFile
+                
                 ' atualizar painel de controle
                 
             End If

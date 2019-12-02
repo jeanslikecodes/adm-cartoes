@@ -51,3 +51,31 @@ Sub copy_content_pdf(nameFile As String)
     Sheets(shBO).Range("A" & frClA + 1 & " :A" & frClB).Value = nameFile
 
 End Sub
+
+Sub copy_content_up(yearFile As String)
+    
+    ' copia o conteudo da BO em atualiza_bases
+    ' cola na base do ano do arquivo
+    
+    nameBase = "base_" & yearFile
+    
+    Workbooks(thisWorkbook.Name).Activate
+    frClA = Sheets(shBO).Cells(Rows.Count, 1).End(xlUp).Row
+    
+    Sheets(shBO).Range("A2:B" & frClA).Select
+    Selection.Copy
+    
+    Application.Wait (Now + TimeSerial(0, 0, 3))
+    
+    Workbooks(nameBase).Activate
+    Workbooks(nameBase).Sheets(shBO).Select
+    frClA = Workbooks(nameBase).Sheets(shBO).Cells(Rows.Count, 1).End(xlUp).Row
+    
+    Workbooks(nameBase).Sheets(shBO).Range("A" & frClA + 1).Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    Workbooks(nameBase).Save
+    Application.Wait (Now + TimeSerial(0, 0, 3))
+    Workbooks(nameBase).Close
+    
+End Sub

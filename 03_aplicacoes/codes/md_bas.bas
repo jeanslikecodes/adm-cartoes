@@ -18,8 +18,7 @@ Sub create_base(yearFile As String)
 
     srcPath = CStr(setPath & "\")
     desPath = CStr(basPath & "\")
-    
-    
+
     srcName = srcPath & "base_modelo.xlsb"
     desName1 = desPath & "base_modelo.xlsb"             ' nome original (base_modelo.xlsb)
     desName2 = desPath & "base_" & yearFile & ".xlsb"   ' nome renomeado (base_year.xlsb)
