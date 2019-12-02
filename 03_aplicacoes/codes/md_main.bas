@@ -9,7 +9,7 @@ Sub include_info_in_base()
     md_var.instance_variables
     
     Dim nameFile As String
-    Dim sizeFile As Integer
+    Dim sizeFile As Long
     Dim yearFile As String
      
     For Each myFile In pdfPath.Files
