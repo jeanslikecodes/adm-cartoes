@@ -22,7 +22,7 @@ Sub copy_content_pdf(nameFile As String)
     adobeFile = pdfPath & "/" & nameFile
             
     minutes = 0
-    seconds = 15
+    seconds = 45
             
     thisWorkbook.FollowHyperlink adobeFile
             
