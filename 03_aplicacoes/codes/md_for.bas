@@ -6,6 +6,7 @@ Sub extract_and_transform()
     line_classification
     move_to_clean_base
     clean_information
+    id_bl
 
 End Sub
 
@@ -90,8 +91,6 @@ End Sub
 
 Sub clean_information()
 
-    shBL = "BL"
-    
     Sheets(shBL).Select
     frBL = Sheets(shBL).Cells(Rows.Count, 1).End(xlUp).Row
             
@@ -173,10 +172,37 @@ Sub clean_information()
                 Sheets(shBL).Range("T" & rwBL).Value = vParcelaLiquida
         End Select
         
-      
-        'Sheets (shBL)
     Next
  
 End Sub
 
+Sub id_bl()
+
+    Sheets(shBL).Select
+    frBL = Sheets(shBL).Cells(Rows.Count, 1).End(xlUp).Row
+    
+    For rwBL = 2 To frBL
+        If Sheets(shBL).Range("F" & rwBL).Value <> "" Then
+             vGmb = Sheets(shBL).Range("F" & rwBL).Value
+             vEmpresa = Sheets(shBL).Range("G" & rwBL).Value
+             vAnoMes = Sheets(shBL).Range("H" & rwBL).Value
+             vData = Sheets(shBL).Range("I" & rwBL).Value
+             vNatureza = Sheets(shBL).Range("J" & rwBL).Value
+             vOperadora = Sheets(shBL).Range("K" & rwBL).Value
+             vBandeira = Sheets(shBL).Range("L" & rwBL).Value
+             vMetodo = Sheets(shBL).Range("M" & rwBL).Value
+             vNome = Sheets(shBL).Range("N" & rwBL).Value
+             vParcelas = Sheets(shBL).Range("Q" & rwBL).Value
+             vParcelaBruta = Format(Sheets(shBL).Range("R" & rwBL).Value, "#.#0")
+             vParcelaBruta = Left(vParcelaBruta, InStr(1, vParcelaBruta, ",", vbTextCompare) + 1)
+             
+             vIdBL = "|" & vGmb & "|" & vEmpresa & "|" & vAnoMes & "|" & vData & "|" & _
+                        vNatureza & "|" & vOperadora & "|" & vBandeira & "|" & vMetodo & "|" & _
+                        vNome & "|" & vParcelas & "|" & vParcelaBruta & "|"
+             
+             Sheets(shBL).Range("E" & rwBL).Value = vIdBL
+        End If
+    Next
+    
+End Sub
 
