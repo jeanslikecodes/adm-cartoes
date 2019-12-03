@@ -37,8 +37,6 @@ Sub include_info_in_base()
                 ' formatar arquivo
                 md_for.extract_and_transform
                 
-                Exit Sub
-                
                 ' abrir base
                 md_bas.open_base yearFile
                 
@@ -46,7 +44,7 @@ Sub include_info_in_base()
                 md_arc.copy_content_up yearFile
                 
                 ' limpa bo
-                md_bo.clear_bo
+                md_bo.clear_b
                 
                 ' atualizar painel de controle
                 md_pc.insert_info nameFile, sizefile

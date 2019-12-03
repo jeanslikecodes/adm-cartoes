@@ -64,9 +64,10 @@ Sub copy_content_up(yearFile As String)
     nameBase = "base_" & yearFile
     
     Workbooks(thisWorkbook.Name).Activate
+    Sheets(shBO).Select
     frClA = Sheets(shBO).Cells(Rows.Count, 1).End(xlUp).Row
     
-    Sheets(shBO).Range("A2:B" & frClA).Select
+    Sheets(shBO).Range("A2:C" & frClA).Select
     Selection.Copy
     
     Application.Wait (Now + TimeSerial(0, 0, 5))
@@ -76,6 +77,40 @@ Sub copy_content_up(yearFile As String)
     frClA = Workbooks(nameBase).Sheets(shBO).Cells(Rows.Count, 1).End(xlUp).Row
     
     Workbooks(nameBase).Sheets(shBO).Range("A" & frClA + 1).Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    ' cola bl
+    Workbooks(thisWorkbook.Name).Activate
+    Sheets(shBL).Select
+    frClA = Sheets(shBL).Cells(Rows.Count, 1).End(xlUp).Row
+    
+    Sheets(shBL).Range("A2:T" & frClA).Select
+    Selection.Copy
+    
+    Application.Wait (Now + TimeSerial(0, 0, 5))
+    
+    Workbooks(nameBase).Activate
+    Workbooks(nameBase).Sheets(shBL).Select
+    frClA = Workbooks(nameBase).Sheets(shBL).Cells(Rows.Count, 1).End(xlUp).Row
+    
+    Workbooks(nameBase).Sheets(shBL).Range("A" & frClA + 1).Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    ' cola bc
+    Workbooks(thisWorkbook.Name).Activate
+    Sheets(shBC).Select
+    frClA = Sheets(shBC).Cells(Rows.Count, 1).End(xlUp).Row
+    
+    Sheets(shBC).Range("A2:P" & frClA).Select
+    Selection.Copy
+    
+    Application.Wait (Now + TimeSerial(0, 0, 5))
+    
+    Workbooks(nameBase).Activate
+    Workbooks(nameBase).Sheets(shBC).Select
+    frClA = Workbooks(nameBase).Sheets(shBC).Cells(Rows.Count, 1).End(xlUp).Row
+    
+    Workbooks(nameBase).Sheets(shBC).Range("A" & frClA + 1).Select
     Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
     
     Workbooks(nameBase).Save
