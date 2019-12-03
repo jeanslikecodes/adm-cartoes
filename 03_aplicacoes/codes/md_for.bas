@@ -7,11 +7,12 @@ Sub extract_and_transform()
     move_to_clean_base
     clean_information
     id_bl
+    move_to_consolidated_base
 
 End Sub
 
 Sub line_classification()
-
+    
     Sheets(shBO).Select
     frBO = Sheets(shBO).Cells(Rows.Count, 1).End(xlUp).Row
     
@@ -54,7 +55,7 @@ Sub line_classification()
 End Sub
 
 Sub move_to_clean_base()
-
+    
     Sheets(shBO).Select
     frBO = Sheets(shBO).Cells(Rows.Count, 1).End(xlUp).Row
     
@@ -90,7 +91,7 @@ Sub move_to_clean_base()
 End Sub
 
 Sub clean_information()
-
+    
     Sheets(shBL).Select
     frBL = Sheets(shBL).Cells(Rows.Count, 1).End(xlUp).Row
             
@@ -177,7 +178,7 @@ Sub clean_information()
 End Sub
 
 Sub id_bl()
-
+    
     Sheets(shBL).Select
     frBL = Sheets(shBL).Cells(Rows.Count, 1).End(xlUp).Row
     
@@ -204,5 +205,59 @@ Sub id_bl()
         End If
     Next
     
+End Sub
+
+Sub move_to_consolidated_base()
+    
+    Sheets(shBL).Select
+    frBL = Sheets(shBL).Cells(Rows.Count, 1).End(xlUp).Row
+    
+    For rwBL = 2 To frBL
+        vIdBL = Sheets(shBL).Range("E" & rwBL).Value
+        
+        If vIdBL <> "" Then
+            vParcelas = Sheets(shBL).Range("Q" & rwBL).Value
+        
+            If vParcelas = 1 Then
+                Sheets(shBL).Range("E" & rwBL & ":U" & rwBL).Select
+                Selection.Copy
+                
+                Sheets(shBC).Select
+                frBC = Sheets(shBC).Cells(Rows.Count, 1).End(xlUp).Row
+            
+                Sheets(shBC).Range("A" & frBC + 1).Select
+                ActiveSheet.Paste
+            Else
+                On Error Resume Next
+                rwBC = WorksheetFunction.Match(vIdBL, Sheets(shBC).Range("A:A"), 0)
+            
+                If rwBC = "" Then
+                    Sheets(shBL).Range("E" & rwBL & ":U" & rwBL).Select
+                    Selection.Copy
+                
+                    Sheets(shBC).Select
+                    frBC = Sheets(shBC).Cells(Rows.Count, 1).End(xlUp).Row
+            
+                    Sheets(shBC).Range("A" & frBC + 1).Select
+                    ActiveSheet.Paste
+                Else
+                    vParcelaBruta = Sheets(shBL).Range("R" & rwBL).Value
+                    vParcelaTaxa = Sheets(shBL).Range("S" & rwBL).Value
+                    vParcelaLiquida = Sheets(shBL).Range("T" & rwBL).Value
+                    
+                    Sheets(shBC).Select
+                    Sheets(shBC).Range("N" & rwBC).Value = Sheets(shBC).Range("N" & rwBC).Value + vParcelaBruta
+                    Sheets(shBC).Range("O" & rwBC).Value = Sheets(shBC).Range("O" & rwBC).Value + vParcelaTaxa
+                    Sheets(shBC).Range("P" & rwBC).Value = Sheets(shBC).Range("P" & rwBC).Value + vParcelaLiquida
+                End If
+            End If
+            
+        End If
+        
+        rwBC = ""
+        
+        Sheets(shBL).Select
+    Next
+
 End Sub
 
