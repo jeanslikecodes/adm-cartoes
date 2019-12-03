@@ -5,6 +5,7 @@ Sub extract_and_transform()
 
     line_classification
     move_to_clean_base
+    clean_information
 
 End Sub
 
@@ -15,19 +16,19 @@ Sub line_classification()
     
     For rwBO = 2 To frBO
         vConteudo = LCase(Sheets(shBO).Range("B" & rwBO).Value & " ")
-        vVarConteudo = Split(vConteudo, " ")
+        vVarconteudo = Split(vConteudo, " ")
         
-        vLP = UBound(vVarConteudo) ' last position of array vVarConteudo
+        vLP = UBound(vVarconteudo) ' last position of array vVarConteudo
     
-        If vVarConteudo(0) = "cartão" Or vVarConteudo(0) = "natureza" Then
-            Select Case vVarConteudo(0)
+        If vVarconteudo(0) = "cartão" Or vVarconteudo(0) = "natureza" Then
+            Select Case vVarconteudo(0)
                 Case "cartão": vClasse = "x"
                 Case "natureza": vClasse = "y"
             End Select
         End If
         
-        If Len(vVarConteudo(0)) = 2 And Len(vConteudo) > 4 Then
-            If vVarConteudo(vLP) = "710-Caixa" Then
+        If Len(vVarconteudo(0)) = 2 And Len(vConteudo) > 4 Then
+            If vVarconteudo(vLP) = "710-Caixa" Then
                 vClasse = "w"
             Else
                 vClasse = "z"
@@ -85,6 +86,97 @@ Sub move_to_clean_base()
             Sheets(shBL).Range("D" & frBL + 1).Value = vClasse
         End If
     Next
+End Sub
+
+Sub clean_information()
+
+    shBL = "BL"
+    
+    Sheets(shBL).Select
+    frBL = Sheets(shBL).Cells(Rows.Count, 1).End(xlUp).Row
+            
+    For rwBL = 2 To frBL
+        vClasse = Sheets(shBL).Range("D" & rwBL).Value
+        
+        ' vConteudoB
+        vConteudoB = Sheets(shBL).Range("B" & rwBL).Value
+
+        vGmb = Mid(vConteudoB, InStr(1, vConteudoB, "_") + 1, 3)
+        vAnoMes = Mid(vConteudoB, 1, InStr(1, vConteudoB, "_") - 1)
+        
+        'vConteudo C
+        vConteudoC = Sheets(shBL).Range("C" & rwBL).Value
+        vVarConteudoC = Split(vConteudoC, " ")
+        vLPC = UBound(vVarConteudoC) ' Last position conteudo C
+        
+        Select Case vClasse
+            Case "x":
+                vOperadora = LCase(Trim(vVarConteudoC(vLPC)))
+                vBandeira = Replace(LCase(Trim(vVarConteudoC(3))), "american", "american express")
+                
+                Select Case vBandeira
+                    Case "american express", "master": vMetodo = "credito"
+                    Case "maestro": vMetodo = "debito"
+                    Case "visa", "elo":
+                        If LCase(Trim(vVarConteudoC(4))) = "electron" Or _
+                            LCase(Trim(vVarConteudoC(4))) = "debito" Then
+                            vMetodo = "debito"
+                        Else
+                            vMetodo = "credito"
+                        End If
+                End Select
+            Case "y":
+                vNatureza = LCase(Trim(Replace(vConteudoC, "Natureza Receita:", "")))
+            Case "z", "w":
+                vEmpresa = vVarConteudoC(0)
+                vData = CDate(Left(vVarConteudoC(1), 2) & "/" & _
+                            Mid(vVarConteudoC(1), 4, 2) & "/" & _
+                            Right(vVarConteudoC(1), 4))
+                
+                If InStr(1, vVarConteudoC(vLPC - 6), "4-", vbTextCompare) > 0 Then
+                    vVarNome = 7
+                    vCC = LCase(Trim(vVarConteudoC(vLPC - 6)))
+                Else
+                    vVarNome = 6
+                    vCC = LCase(Trim(vVarConteudoC(vLPC - 5)))
+                End If
+                
+                vNome = ""
+                
+                For vV = 2 To vLPC - vVarNome
+                    vNome = vNome & vVarConteudoC(vV) & " "
+                Next
+                
+                vNome = Trim(Replace(vNome, " - ", ""))
+                
+                vLote = vVarConteudoC(vLPC - 4)
+                vParcelas = vVarConteudoC(vLPC - 3)
+                vParcelaBruta = CDbl(vVarConteudoC(vLPC - 2))
+                vParcelaTaxa = CDbl(vVarConteudoC(vLPC - 1))
+                vParcelaLiquida = CDbl(vVarConteudoC(vLPC))
+
+
+                Sheets(shBL).Range("F" & rwBL).Value = vGmb
+                Sheets(shBL).Range("G" & rwBL).Value = vEmpresa
+                Sheets(shBL).Range("H" & rwBL).Value = vAnoMes
+                Sheets(shBL).Range("I" & rwBL).Value = vData
+                Sheets(shBL).Range("J" & rwBL).Value = vNatureza
+                Sheets(shBL).Range("K" & rwBL).Value = vOperadora
+                Sheets(shBL).Range("L" & rwBL).Value = vBandeira
+                Sheets(shBL).Range("M" & rwBL).Value = vMetodo
+                Sheets(shBL).Range("N" & rwBL).Value = vNome
+                Sheets(shBL).Range("O" & rwBL).Value = vCC
+                Sheets(shBL).Range("P" & rwBL).Value = vLote
+                Sheets(shBL).Range("Q" & rwBL).Value = vParcelas
+                Sheets(shBL).Range("R" & rwBL).Value = vParcelaBruta
+                Sheets(shBL).Range("S" & rwBL).Value = vParcelaTaxa
+                Sheets(shBL).Range("T" & rwBL).Value = vParcelaLiquida
+        End Select
+        
+      
+        'Sheets (shBL)
+    Next
+ 
 End Sub
 
 
