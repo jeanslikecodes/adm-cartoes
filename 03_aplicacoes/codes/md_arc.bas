@@ -21,7 +21,7 @@ Sub copy_content_pdf(nameFile As String, sizefile As Long)
     
     adobeFile = pdfPath & "/" & nameFile
             
-    If CInt(Round(sizefile / 1024, 0)) <= 220 Then
+    If CInt(Round(sizefile / 1024, 0)) <= 200 Then
         seconds = 40
     Else
         seconds = 60

@@ -13,6 +13,8 @@ End Sub
 
 Sub line_classification()
     
+    shBO = "BO"
+    
     Sheets(shBO).Select
     frBO = Sheets(shBO).Cells(Rows.Count, 1).End(xlUp).Row
     
@@ -30,7 +32,7 @@ Sub line_classification()
         End If
         
         If Len(vVarconteudo(0)) = 2 And Len(vConteudo) > 4 Then
-            If vVarconteudo(vLP) = "710-Caixa" Then
+            If InStr(1, vVarconteudo(vLP - 1), "-Caixa", vbTextCompare) > 0 Then
                 vClasse = "w"
             Else
                 vClasse = "z"
@@ -68,7 +70,7 @@ Sub move_to_clean_base()
             If vClasse <> "w" Then
                 vConteudo = Sheets(shBO).Range("B" & rwBO).Value
             Else
-                vConteudc = Sheets(shBO).Range("B" & rwBO).Value & _
+                vConteudo = Sheets(shBO).Range("B" & rwBO).Value & _
                                 Sheets(shBO).Range("B" & rwBO + 1).Value & " " & _
                                 Sheets(shBO).Range("B" & rwBO + 2).Value
                 rwBO = rwBO + 2
